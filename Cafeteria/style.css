@@ -59,3 +59,19 @@ footer {
   padding: 15px;
   font-size: 14px;
 }
+.cart {
+  background-color: #fff8f0;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.cart ul {
+  list-style: none;
+  padding: 0;
+}
+
+.cart li {
+  margin-bottom: 8px;
+}
