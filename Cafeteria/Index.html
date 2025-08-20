@@ -11,28 +11,37 @@
     <h1>Cafeteria Delícia ☕</h1>
     <p>Seu café favorito, entregue com carinho!</p>
   </header>
+  
+<section class="menu">
+  <h2>Cardápio</h2>
+  <div class="item">
+    <h3>Café Expresso</h3>
+    <p>Forte e encorpado</p>
+    <span>R$ 5,00</span>
+    <button onclick="addToCart('Café Expresso', 5.00)">Adicionar</button>
+  </div>
+  <div class="item">
+    <h3>Capuccino</h3>
+    <p>Com espuma cremosa</p>
+    <span>R$ 7,50</span>
+    <button onclick="addToCart('Capuccino', 7.50)">Adicionar</button>
+  </div>
+  <div class="item">
+    <h3>Bolo de Cenoura</h3>
+    <p>Com cobertura de chocolate</p>
+    <span>R$ 6,00</span>
+    <button onclick="addToCart('Bolo de Cenoura', 6.00)">Adicionar</button>
+  </div>
+</section>
 
-  <section class="menu">
-    <h2>Cardápio</h2>
-    <div class="item">
-      <h3>Café Expresso</h3>
-      <p>Forte e encorpado</p>
-      <span>R$ 5,00</span>
-      <button>Adicionar ao pedido</button>
-    </div>
-    <div class="item">
-      <h3>Capuccino</h3>
-      <p>Com espuma cremosa</p>
-      <span>R$ 7,50</span>
-      <button>Adicionar ao pedido</button>
-    </div>
-    <div class="item">
-      <h3>Bolo de Cenoura</h3>
-      <p>Com cobertura de chocolate</p>
-      <span>R$ 6,00</span>
-      <button>Adicionar ao pedido</button>
-    </div>
-  </section>
+<section class="cart">
+  <h2>🛒 Seu Pedido</h2>
+  <ul id="cart-items"></ul>
+  <p><strong>Total: R$ <span id="cart-total">0.00</span></strong></p>
+  <button onclick="sendOrder()">Enviar Pedido</button>
+</section>
+
+<script src="script.js"></script>
 
   <footer>
     <p>📞 Faça seu pedido pelo WhatsApp: (17) 99999-9999</p>
