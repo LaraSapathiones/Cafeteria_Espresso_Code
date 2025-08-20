@@ -1,40 +1,63 @@
-let cart = [];
+// script.js
 
-function addToCart(name, price) {
-  cart.push({ name, price });
-  updateCart();
+// Carrinho de compras
+const cart = [];
+
+// Função para adicionar itens ao carrinho
+function addToCart(nome, preco) {
+  // Verifica se o produto já está no carrinho
+  const itemExistente = cart.find(item => item.nome === nome);
+  if (itemExistente) {
+    itemExistente.qtd += 1;
+  } else {
+    cart.push({ nome, preco, qtd: 1 });
+  }
+  renderCart();
 }
 
-function updateCart() {
+// Função para renderizar o carrinho
+function renderCart() {
   const cartItems = document.getElementById('cart-items');
-  const cartTotal = document.getElementById('cart-total');
   cartItems.innerHTML = '';
-
   let total = 0;
   cart.forEach(item => {
+    total += item.preco * item.qtd;
     const li = document.createElement('li');
-    li.textContent = `${item.name} - R$ ${item.price.toFixed(2)}`;
+    li.innerHTML = `${item.nome} x${item.qtd} - R$ ${(item.preco * item.qtd).toFixed(2)}
+      <button onclick="removeFromCart('${item.nome}')">Remover</button>`;
     cartItems.appendChild(li);
-    total += item.price;
   });
-
-  cartTotal.textContent = total.toFixed(2);
+  document.getElementById('cart-total').innerText = total.toFixed(2);
 }
 
+// Função para remover itens do carrinho
+function removeFromCart(nome) {
+  const idx = cart.findIndex(item => item.nome === nome);
+  if (idx > -1) {
+    if (cart[idx].qtd > 1) {
+      cart[idx].qtd -= 1;
+    } else {
+      cart.splice(idx, 1);
+    }
+    renderCart();
+  }
+}
+
+// Função para enviar pedido via WhatsApp
 function sendOrder() {
   if (cart.length === 0) {
     alert('Seu carrinho está vazio!');
     return;
   }
-
-  let message = 'Olá! Gostaria de fazer o seguinte pedido:\n';
+  let mensagem = 'Olá! Gostaria de fazer o seguinte pedido:\n\n';
   cart.forEach(item => {
-    message += `• ${item.name} - R$ ${item.price.toFixed(2)}\n`;
+    mensagem += `- ${item.nome} x${item.qtd}: R$ ${(item.preco * item.qtd).toFixed(2)}\n`;
   });
-
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-  message += `\nTotal: R$ ${total.toFixed(2)}`;
-
+  mensagem += `\nTotal: R$ ${document.getElementById('cart-total').innerText}`;
+  const telefone = '17999999999';
+  const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+  window.open(url, '_blank');
+}
   // Simula envio via WhatsApp
   const encodedMessage = encodeURIComponent(message);
   const whatsappLink = `https://wa.me/5517999999999?text=${encodedMessage}`;
